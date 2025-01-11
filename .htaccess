@@ -1,0 +1,10 @@
+RewriteEngine On
+# Remove .php extension
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L,QSA]
+
+# Prevent directory listings
+Options -Indexes
+
+# Prevent search engines from indexing all content
+Header set X-Robots-Tag "noindex, nofollow"
