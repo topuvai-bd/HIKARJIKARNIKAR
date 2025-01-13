@@ -3,20 +3,38 @@
 if(!isset($_GET['amount']) || !isset($_GET['phone'])){
     header("Location: https://superludobd.com/");
 }
+require_once 'db.php';
+$CallBack_Base = SITE_URL;
 
-$CallBack_Base = "https://courssell.xyz/payment/";
-
-$Name="Test";
-$Email="test@gmail.com";
 
 $amount = $_GET['amount'];
 $phone = $_GET['phone'];
 
-$baseURL = 'https://pay.courssell.xyz/';
-$apiKEY = 'f1d5bd54b659a131aad3020f1bbcd15e5bd275d9';
-// $baseURL = 'https://sandbox.uddoktapay.com/';
-// $apiKEY = '982d381360a69d419689740d9f2e26ce36fb7a50';
+$amount = mysqli_real_escape_string($conn, $amount);
+$phone = mysqli_real_escape_string($conn, $phone);
+if($amount < 1){
+    echo "Invalid Amount";
+    exit;
+}
+
+
+$Name= "Payer".$phone;
+$Email=$phone."@gmail.com";
+
+$baseURL = PAY_URL;
+$apiKEY = API_KEY;
+
+
 $order_id = "course_".rand(100000,999999).date('Ymdhis');
+
+// store order_id in db SELECT `id`, `user_id`, `amount`, `order_id`, `status`, `date` FROM `payments` WHERE 1
+$sql="INSERT INTO `payments`(`user_id`, `amount`, `order_id`) VALUES ('$phone','$amount','$order_id')";
+$result = mysqli_query($conn, $sql);
+if(!$result){
+    echo "Something went wrong";
+    exit;
+}
+
 $fields = [
     'full_name'     => $Name,
     'email'         => $Email,
@@ -58,7 +76,17 @@ curl_close($curl);
 if ($err) {
   echo "cURL Error #:" . $err;
 } else {
-  echo $response;
+  // {
+  //   "status": true,
+  //   "message": "Payment Url",
+  //   "payment_url": "https://sandbox.uddoktapay.com/payment/254663aa2a6a4a5df2aa8dc9f28aa1744a8bae9f"
+  // }
+  $response = json_decode($response, true);
+  if(isset($response['status']) && $response['status'] == true && isset($response['payment_url'])){
+    header("Location: ".$response['payment_url']);
+  }else{
+    echo "Something went wrong";
+  }
 }
 
 ?>
