@@ -198,7 +198,7 @@ Rules: ১. ম্যাচ হারার পর সাথে সাথে Los
 		</div>-->
 <div class="text-block">
 			<div class="section-title pb-2">
-				<a href=""><h4 class="semi">How To Play</h4></a>
+				<a href=""><h4 class="semi">How To Play<i class="ms-2 fa-solid fa-circle-play" style="font-size: 2em; color: red;"></i></h4></a>
 				 
 			</div>
 			 
@@ -212,17 +212,28 @@ Rules: ১. ম্যাচ হারার পর সাথে সাথে Los
 
 		<div class="text-block">
 			<div class="section-title pb-2">
+				<h4 class="semi mb-2"><i class="fa-solid fa-triangle-exclamation"></i>খেলার নিয়ম না জেনে কেউ ম্যাচ জয়েন্ট দেবেন না<i class="fa-solid fa-triangle-exclamation"></i></h4>
 				<h4 class="semi">About Us</h4>
 			</div>
-			<p>SuperLudo is a real-money gaming product.SuperLudo is one type of ludo and other ludoking game bettle platform.</p>
+			<p>Super Ludo গেম খেলুন এবং ইনস্ট্যান্ট ক্যাশ উইথর করুন!
+Super Ludo: Earn Real Money Online Playing Ludo
+আপনি কি অনলাইন গেমিং ভালোবাসেন? অথবা অনলাইন গেম খেলে টাকা আয় করার সহজ উপায় খুঁজছেন? তাহলে Super Ludo গেম আপনার জন্যই।
+<br>
+Super Ludo গেম হল একটি অনলাইন প্ল্যাটফর্ম যেখানে আপনি সত্যিকারের খেলোয়াড়দের সাথে লুডো খেলুন এবং রিয়েল ক্যাশ জিতুন।
+বিকাশ এবং নগদে ইনস্ট্যান্ট উইথড্র নিন, মাত্র ১ ঘন্টার মধ্যে।
+রেফার অ্যান্ড আর্ন প্রোগ্রাম: বন্ধুদের রেফার করে অতিরিক্ত আয় করুন।
+কেন Super Ludo সেরা?
+রিয়েল মানি গেম: বিনোদনের সাথে আয়ের সুযোগ।
+অনলাইন লুডো গেম: জনপ্রিয় বোর্ড গেমের আধুনিক ডিজিটাল রূপ।
+ইউজার ফ্রেন্ডলি অ্যাপ: সহজ ইন্টারফেসে গেমিং এবং ক্যাশ উইথড্র।.</p>
 		</div>
 
-		<div class="text-block">
+		<!-- <div class="text-block">
 			<div class="section-title pb-2">
 				<h4 class="semi">Our Products</h4>
 			</div>
 			<p> SuperLudo is not real betting site.  SuperLudo was provide platform for bettle between two person in game.  SuperLudo was work on commision base.</p>
-		</div>
+		</div> -->
 		
 		
 	</div>
