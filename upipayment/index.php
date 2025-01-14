@@ -1,7 +1,7 @@
 <?php
 //X9FBkoZ2
 /*print_r($_REQUEST);
-die();*/
+*/die();
 include "../db.php";
 $key = "a6bc5405-0374-4dd5-ae65-048b0d58cebc";
 

@@ -37,7 +37,7 @@ if(!isset($_SESSION)){ session_start();};
 		{
         	$count++;
         ?>
-        	<?php $playername= $data['user_Name']; ?>
+        	<?php $playername= $data['user_Name']; $profile_img=$data['profile'] ?>
         	<?php $playerrefrealidjoin= $data['refrel_id']; ?>
         	<?php $userrandcode= $data['userrandcode']; ?>
         	<?php $datejoin= $data['datejoin']; ?>

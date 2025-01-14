@@ -39,7 +39,7 @@ if (isset($_POST["with_number"]) && isset($_POST["with_amount"]) && isset($_POST
 <?php
 } else {
         $query = "INSERT INTO sattlement_request(`playername`, `player_phone`, `playeruserid`, `playeramount`, `player_sattlementid`,`sattlement_charge`,`famunt`) VALUES
-      ('" . $playername . "', '" . $playernumber . "','" . $userrandcode . "', '" . $txtvalue . "', '" . $withdrawMethod . "', '" . $amnd . "', '" . $dfshdfh . "')";
+      ('" . $playername . "', '" . $playernumber . "','" . $userrandcode . "', '" . $txtvalue . "', '" . $txtvalueUPI . "', '" . $amnd . "', '" . $dfshdfh . "')";
         mysqli_query($conn, $query);
 
         $manwallt = "INSERT INTO `addwallate_playe`(`username_player`, `number_player`, `usercode_player`, `amount_player`, `product_info`, `date_player`, `status`, `order_number`, `txn`) VALUES ('" . $playername . "', '" . $playernumber . "', '" . $userrandcode . "', '" . $txtvalue . "', '" . $d . "', '" . $playernumber . "', '" . $success . "', '" . $txns . "','" . $txns . "')";

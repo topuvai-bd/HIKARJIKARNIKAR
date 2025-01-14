@@ -1,5 +1,5 @@
 <?php include("Header.php");
-
+$error = "";
 if(isset($_POST['upload'])){
   $filename=$_FILES["front"]["name"];
    $tempname= $_FILES["front"]["tmp_name"];
@@ -14,12 +14,18 @@ if(isset($_POST['upload'])){
    move_uploaded_file($tempname1,$folder1);
    $rands="KYC".rand(1000000,99999999);
    
-   $bank=$_POST['gender'];
-   $b1=$_POST['b1'];
-   $b2=$_POST['b2'];
-   $b3=$_POST['b3'];
-   $b4=$_POST['b4'];
-   $u1=$_POST['u1'];
+//    $bank=$_POST['gender'];
+//    $b1=$_POST['b1'];
+//    $b2=$_POST['b2'];
+//    $b3=$_POST['b3'];
+//    $b4=$_POST['b4'];
+//    $u1=$_POST['u1'];
+   $bank='upi';
+   $b1='blank1';
+   $b2='blank2';
+   $b3='blank3';
+   $b4='blank4';
+   $u1='blank1';
    $result = mysqli_query($conn,"SELECT * FROM `kyc_details` WHERE  usernumber='$playernumber'");
 $count=mysqli_num_rows($result);
 if($count==1)
@@ -28,10 +34,11 @@ if($count==1)
 }
 else{
     if($bank=="upi"){
-   $kycupload="INSERT INTO `kyc_details`(`username`, `usernumber`, `userid`, `adharcard_front`, `adharcard_back`, `kyccode`,`upi`) VALUES ('$playername','$playernumber','$userrandcode','$folder','$folder1','$rands','$u1')";
+   $kycupload="INSERT INTO `kyc_details`(`username`, `usernumber`, `userid`, `adharcard_front`, `adharcard_back`, `kyccode`,`upi`) 
+   VALUES ('$playername','$playernumber','$userrandcode','$folder','$folder1','$rands','$u1')";
      $asdasa=mysqli_query($conn,$kycupload);
      if($asdasa==TRUE){
-           $error='<p class="btn btn-success">SuccessFully Uploaded We under review 24Hours</p>';
+           $error='<p class="btn btn-success">আপলোড করা হয়েছে, একজন এডমিন ২৪ ঘন্টার মধ্যে পর্যালচনা করবেন।</p>';
            ?>
           
            <?php
@@ -56,37 +63,37 @@ else{
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 $(document).ready(function () {
-    $("#bank").hide();
-    $("#upi").hide();
-    $("#r1").click(function () {
-        $("#bank").show();
-         $("#upi").hide();
-    });
-    $("#r2").click(function () {
-        $("#bank").hide();
-         $("#upi").show();
-    });
+    // $("#bank").hide();
+    // $("#upi").hide();
+    // $("#r1").click(function () {
+    //     $("#bank").show();
+    //      $("#upi").hide();
+    // });
+    // $("#r2").click(function () {
+    //     $("#bank").hide();
+    //      $("#upi").show();
+    // });
 });
 </script>
 <div><?php echo $error;?></div>
 <div class="alert alert-danger " id="snackbarerror" style="display:none;"></div>
 		<div class="box bg-white">
 			<div class="section-title pb-2">
-				<h4 class="semi">Upload KYC Document </h4>
+				<h4 class="semi">একাউন্ট ভেরিফাই করুন।</h4>
 			</div>
   <form  method="POST" enctype="multipart/form-data" >
       
       	<div class="result-block d-flex mb-4">
 			 
-					<input class="form-check-input"type="radio" name="gender" id="r1" value="bank" onClick="getResults()">
+					<!-- <input class="form-check-input"type="radio" name="gender" id="r1" value="bank" onClick="getResults()">
 					&nbsp;	<label class="form-check-label">Bank</label>
 
 				&nbsp;	&nbsp;	&nbsp;	<input class="form-check-input"  type="radio" name="gender" id="r2" value="upi">
-					&nbsp;	<label class="form-check-label">UPI</label>
+					&nbsp;	<label class="form-check-label">UPI</label> -->
 			
 			</div>
 
-			<div id="bank" class="result-details won mb-3">
+			<!-- <div id="bank" class="result-details won mb-3">
 				<div class="mb-3">
 				    <label>Enter Bank Name</label>
 				  <input class="form-control h-auto px-2 py-1" type="text" id="wonimg" name="b1">
@@ -110,7 +117,7 @@ $(document).ready(function () {
 				    <label>Enter UPI ID</label>
 				  <input class="form-control h-auto px-2 py-1" type="text" id="losimg" name="u1">
 				</div>
-			</div>
+			</div> -->
       
       
       
@@ -121,12 +128,12 @@ $(document).ready(function () {
       
       
       
-      <p>AdharCard Font Side Photo</p>
+      <p>আপনার লুডু কিং এর প্রফাইলের ছবি</p>
 			<div class="form-group input-group mb-1">
 			
 				<input type="file" name="front" id="front" class="form-control border-start-0 ps-1" placeholder="Amount" required>
 			</div>
-			<p>AdharCard Back Side Photo</p>
+			<p>আপনার সুপারলুডু একাউন্ট এর প্রফাইলের ছবি</p>
 			<div class="form-group input-group mb-1">
 			
 				<input type="file" name="back" id="back" class="form-control border-start-0 ps-1" placeholder="Enter your upi id" required>

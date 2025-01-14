@@ -6,6 +6,9 @@ $session_admin=$_SESSION['finalplayer'];
 
  }
   else{
+    if(!defined('BASEURL')){
+      require_once(__DIR__."/../config.php");
+    }
       header("location:  ".BASEURL."/../login");
     //   header("location:  ../login");
   }

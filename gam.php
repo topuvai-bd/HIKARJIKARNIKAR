@@ -14,7 +14,7 @@ include("wining_charges.php");
 	<div class="block open-battle mb-4" id="viewHere" style="margin-left:3%;margin-right:3%;">
 			<?php
 
-$sqlsd="SELECT * FROM `create_game` ORDER BY id DESC";
+$sqlsd="SELECT *, (SELECT profile FROM user_regist WHERE user_regist.userrandcode=create_game.fuserid) as profile_img1,(SELECT profile FROM user_regist WHERE user_regist.userrandcode=create_game.suserid) as profile_img2  FROM `create_game` ORDER BY id DESC";
     $runsd=mysqli_query($conn,$sqlsd);
 
     if(mysqli_num_rows($runsd)<1)
@@ -71,14 +71,26 @@ else{
 
 				<div class="small text-center d-flex align-items-center justify-content-between">
 					<div class="col-4">
-						<div class="icon mx-auto" style="background-image: url(https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg);"></div>
+						<div class="icon mx-auto" style="background-image: url(<?php
+						 if($datad['profile_img1'] !=''){
+						echo BASEURL.$datad['profile_img1'];
+						}else{
+							echo  'https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg';
+						}
+						?>);"></div>
 						<div class="semi" style="font-size:10px;"><?php echo $datad['fname'];?></div>
 					</div>
 					<div class=""><img src="images/versus.png" height="50"></div>
 					
 					
 							<div class="col-4">
-						<div class="icon mx-auto" style="background-image: url(https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png);"></div>
+						<div class="icon mx-auto" style="background-image: url(<?php
+						 if($datad['profile_img2'] !=''){
+						echo BASEURL.$datad['profile_img2'];
+						}else{
+							echo  'https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png';
+						}
+						?>);"></div>
 						<div class="semi" style="font-size:10px;"><?php echo $datad['sname'];?></div>
 					</div>
 				
@@ -129,14 +141,26 @@ else{
 
 				<div class="small text-center d-flex align-items-center justify-content-between">
 					<div class="col-4">
-						<div class="icon mx-auto" style="background-image: url(https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg);"></div>
+						<div class="icon mx-auto" style="background-image: url(<?php
+						 if($datad['profile_img1'] !=''){
+						echo BASEURL.$datad['profile_img1'];
+						}else{
+							echo  'https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg';
+						}
+						?>);"></div>
 						<div class="semi" style="font-size:10px;"><?php echo $datad['fname'];?></div>
 					</div>
 					<div class=""><img src="images/versus.png" height="50"></div>
 					
 					
 							<div class="col-4">
-						<div class="icon mx-auto" style="background-image: url(https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png);"></div>
+						<div class="icon mx-auto" style="background-image: url(<?php
+						 if($datad['profile_img2'] !=''){
+						echo BASEURL.$datad['profile_img2'];
+						}else{
+							echo  'https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png';
+						}
+						?>);"></div>
 						<div class="semi" style="font-size:10px;"><?php echo $datad['sname'];?></div>
 					</div>
 				

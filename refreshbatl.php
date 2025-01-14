@@ -5,6 +5,12 @@ include("include/pgsessionredirect.php");
 if(isset($_SESSION['sessionludotype'])){
     $ludotypesession= $_SESSION['sessionludotype'];
 }
+if(isset($_SESSION['icreategame']) && $_SESSION['icreategame'] != ""){
+	// game is created by me
+	// now check if the game is accepted by any player
+	$isMyGameStillExist = false;
+}
+
 include("wining_charges.php");
 $sqlsd="SELECT * FROM `create_game` WHERE ludotype='$ludotypesession' && game_status='1' ORDER BY id DESC";
     $runsd=mysqli_query($conn,$sqlsd);
@@ -29,7 +35,11 @@ else{
   <input type="hidden" value="<?php echo $datad['id'];?>" name="manid" id="manid">
 
 			
-					<?php if($datad['fnumber']=="$playernumber"){
+					<?php 
+					
+					
+					if($datad['fnumber']=="$playernumber"){
+						$isMyGameStillExist=true;
 					?>
 					<div class="box py-2 box-style d-block" style="background-color:#f2e6ff;">
 				<div class="small mb-2 pb-2 d-flex align-items-center justify-content-between border-bottom w-100">
@@ -37,7 +47,7 @@ else{
 					CHALLENGE FROM:<span style="color:#990033;font-size:10px;font-weight:bold;" class="icon-ttl-no semi ms-2"><?php echo $datad['fname'];?></span>
 					</div>
 					<div class="ms-2">
-						<span class="icon-ttl-no semi ms-2"><a href="deletegame?gamcode=<?php echo $datad['gameidrandom'];?>&&amnt=<?php echo $datad['game_amount'];?>" class="btn btn-danger btn-sm">Delete</a></span>
+						<span class="icon-ttl-no semi ms-2"><a href="deletegame?gamcode=<?php echo $datad['gameidrandom'];?>&amnt=<?php echo $datad['game_amount'];?>" class="btn btn-danger btn-sm">Delete</a></span>
 					</div>
 				</div>
 
@@ -105,6 +115,16 @@ else{
 	<br>
 <?php
 }
+}
+
+if(isset($isMyGameStillExist) && $isMyGameStillExist==false){
+	// game is created by me and accepted by any player
+	$_SESSION['icreategame']="";
+	?>
+	<script>
+	console.log("game joined by someone");
+	AudioSwitch=true;</script>
+	<?php 
 }
 ?>
 

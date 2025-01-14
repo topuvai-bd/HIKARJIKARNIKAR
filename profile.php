@@ -1,14 +1,16 @@
 <?php include("Header.php");?>
-
 <?php
 
+if(!isset($_SESSION)){
+	session_start();
+}
  $namesesduser =$_SESSION['finalplayer'];
     $sql="SELECT * FROM `user_regist` WHERE user_number='$namesesduser'";
     $run=mysqli_query($conn,$sql);
 
     if(mysqli_num_rows($run)<1)
     {
-       header("Location:../");
+       header("Location: ".BASEURL);
     }
 else{
   
@@ -60,8 +62,8 @@ else{
 	    <?php if($data['kyc']=="Approve"){
 	        ?>
 	        	<a href="" class="box box-style cash-won" style="height:130px;background-color:#e6ffff;">
-			<h6 class="mb-0 d-flex align-items-center"><img src="https://khelbro.com/images/kyc-icon-new.png" style="width:40px;">
-				 &nbsp;&nbsp;KYC Completed  &nbsp;&nbsp; &nbsp;&nbsp;<img src="https://png.pngitem.com/pimgs/s/144-1449392_true-false-icon-png-transparent-png.png" style="width:20px;"> </h6>
+			<h6 class="mb-0 d-flex align-items-center"><img src="images/kyc-icon-new.png" style="width:40px;">
+				 &nbsp;&nbsp;একাউন্ট ভেরিফাইড  &nbsp;&nbsp; &nbsp;&nbsp;<img src="https://png.pngitem.com/pimgs/s/144-1449392_true-false-icon-png-transparent-png.png" style="width:20px;"> </h6>
 		
 			
 		
@@ -73,8 +75,8 @@ else{
 	        ?>
 	        
 	        	<a href="uploadkyc" class="box box-style cash-won" style="height:130px;background-color:#e6ffff;color:red;">
-			<h6 class="mb-0 d-flex align-items-center"><img src="https://khelbro.com/images/kyc-icon-new.png" style="width:40px;">
-				 &nbsp;&nbsp;KYC Pending Please Complete KYC  &nbsp;&nbsp; &nbsp;&nbsp;<img src="https://t3.ftcdn.net/jpg/01/71/60/84/360_F_171608484_figMqbjvhS7T8uCpPZDErlLI4HeWklYG.jpg" style="width:40px;"> </h6>
+			<h6 class="mb-0 d-flex align-items-center"><img src="images/kyc-icon-new.png" style="width:40px;">
+				 &nbsp;&nbsp;একাউন্ট ভেরিফাই করুন  &nbsp;&nbsp; &nbsp;&nbsp;<img src="https://t3.ftcdn.net/jpg/01/71/60/84/360_F_171608484_figMqbjvhS7T8uCpPZDErlLI4HeWklYG.jpg" style="width:40px;"> </h6>
 		
 			
 		

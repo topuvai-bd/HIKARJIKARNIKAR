@@ -1,5 +1,8 @@
 RewriteEngine On
-# Remove .php extension
+
+# Remove .php extension (only if not already ending with .php or a directory)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.+)$ $1.php [L,QSA]
 
@@ -7,4 +10,6 @@ RewriteRule ^(.+)$ $1.php [L,QSA]
 Options -Indexes
 
 # Prevent search engines from indexing all content
-Header set X-Robots-Tag "noindex, nofollow"
+<FilesMatch "\.(html|php)$">
+    Header set X-Robots-Tag "noindex, nofollow"
+</FilesMatch>

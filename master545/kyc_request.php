@@ -90,7 +90,7 @@ else{
 											    	<div class="ms-auto">
 						<div class="btn-group">
 							<button type="button" class="btn btn-success"><i class="lni lni-consulting"></i></button>
-							<button type="button" class="btn btn-success split-bg-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+							<button type="button" onclick="console.log('working')" class="btn btn-success split-bg-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
 							</button>
 							<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="approve?idkyc=<?php echo $data['kyccode'];?>&&number=<?php echo $data['usernumber'];?>&&status=<?php echo "Approve";?>">Approve</a>
 								<a class="dropdown-item" href="approve?idkyc=<?php echo $data['kyccode'];?>&&number=<?php echo $data['usernumber'];?>&&status=<?php echo "Disapprove";?>">Disapprove</a>
@@ -132,4 +132,4 @@ else{
 			</div>
 		</div>
 		
-		<?php include("footer");?>
+		<?php include("footer.php");?>

@@ -1,9 +1,9 @@
-<?php include("Header.php");
+<?php include("Header.php"); $error = "";
 ?>
 <section class="wallet-sect bg-light py-4 clearfix">
 	<div class="container-fluid">
 	<?php
-$sqlsd="SELECT * FROM `user_regist` WHERE user_number='$playernumber'";
+$sqlsd="SELECT * FROM `user_regist` WHERE user_number='$playernumber' AND kyc='Approve'";
     $runsd=mysqli_query($conn,$sqlsd);
 
     if(mysqli_num_rows($runsd)<1)
@@ -11,7 +11,7 @@ $sqlsd="SELECT * FROM `user_regist` WHERE user_number='$playernumber'";
   ?>
   	<div class="box bg-danger">
 			<div class="section-title pb-2 p-3">
-				<h4 class="semi" style="color:white;">KYC Not Verify Please Upload KYC Document</h4>
+				<h4 class="semi" style="color:white;">একাউন্ট ভেরিফাইড না, ভেরিফাই করুন।</h4>
 				<a href="uploadkyc" class="btn btn-primary">Upload KYC</a>
 			</div>
 
@@ -19,7 +19,8 @@ $sqlsd="SELECT * FROM `user_regist` WHERE user_number='$playernumber'";
   <?php
     }
 else{
-  
+
+
         ?>
 
 		<div class="box bg-white">

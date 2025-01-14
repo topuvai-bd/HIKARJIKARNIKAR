@@ -1,10 +1,10 @@
 <?php include("Header.php");
 
-$winningAmount =$conn->query( "SELECT SUM(amount_player)  as winningAmount FROM `addwallate_playe` WHERE number_player='$namesesduser' && product_info='C' && status='success' AND txn IS NOT NULL");
+$winningAmount =$conn->query( "SELECT SUM(amount_player)  as winningAmount FROM `addwallate_playe` WHERE number_player='$namesesduser' && product_info='C' && status='success' AND type1 IS NULL");
 $winningAmount =$winningAmount->fetch_assoc();
 $winningAmount= $winningAmount['winningAmount']; 
 
-$deposiCash =$conn->query( "SELECT SUM(amount_player)  as deposiCash FROM `addwallate_playe` WHERE number_player='$namesesduser' && product_info='C' && status='success' AND txn IS NULL");
+$deposiCash =$conn->query( "SELECT SUM(amount_player)  as deposiCash FROM `addwallate_playe` WHERE number_player='$namesesduser' && product_info='C' && status='success' AND type1='type1'");
 $deposiCash =$deposiCash->fetch_assoc();
 $deposiCash= $deposiCash['deposiCash']; 
 
@@ -57,10 +57,8 @@ $totalAmountEarned = $amountaddd;
 			</picture>
 			<div class="rcBanner-text bold mt-2"> <span class="bold" style="color: #0186d6; font-style: italic;">Real Game With Real Money!</span></div>
 		</div>
-		<div class="rcBanner-footer">
-			For best experience, open&nbsp;
-			<a href="#!" class="primary-color text-decoration-underline">SuperLudoBD</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile
-		</div>
+		<div class="rcBanner-footer">For Developing Games Like This, open&nbsp;<a href=https://topuvai.com class="primary-color text-decoration-underline">TopuVai.com</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile</div>
+
 	</div>
 </div><!-- // Main -->
 

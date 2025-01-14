@@ -35,7 +35,53 @@ $_SESSION['sessionludotype']="$ludotype";
 
 
 	</div>
+	<audio id="audioPlayer" src="alarm.wav" preload="auto"  muted></audio>
+	<script>
+		var AudioSwitch=false;
+		// Get the audio element
+        const audio = document.getElementById('audioPlayer');
+		 // Start muted and paused on user interaction
+		 function initAudio() {
+            document.body.removeEventListener('click', initAudio); // Remove listener after first click
+            audio.muted = false; // Unmute audio
+            // audio.play() // Play audio briefly
+            //     .then(() => {
+            //         audio.pause(); // Immediately pause after starting
+            //         console.log("Audio initialized successfully.");
+            //     })
+            //     .catch((error) => {
+            //         console.error("Error initializing audio:", error.message);
+            //     });
+        }
+		document.body.addEventListener('click', initAudio);
+        // Play the sound
+        function playSound() {
+            audio.play();
+        }
 
+        // Pause the sound
+        function pauseSound() {
+            audio.pause();
+        }
+		console.log("AudioSwitch32423");
+		// audio.pauseSound();
+		function LoopAudio(){
+			console.log("AudioSwitch",AudioSwitch);
+			
+			if(AudioSwitch && audio.paused){
+				playSound();
+			}
+			if(AudioSwitch==false){
+				pauseSound();
+			}
+		}
+		
+		// setInterval(function(){
+		// 	LoopAudio();
+		// }, 400);
+		setInterval(LoopAudio, 1000);
+
+	</script>
 	<h6 class="semi mb-2 d-flex align-items-center justify-content-between">
 		<span>Open Battles</span> <span><img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Red_circle.gif?20210202002436" style="width:20px;"></span>
 		<a href="javascript:void(0);" class="" data-bs-toggle="modal" data-bs-target="#rulesModal">Rules <i class="fas fa-circle-info"></i></a>
@@ -56,7 +102,7 @@ $_SESSION['sessionludotype']="$ludotype";
 <div class="block open-battle mb-4" id="viewHere" style="margin-left:3%;margin-right:3%;">
 		<?php
 
-$sqlsd="SELECT * FROM `create_game` WHERE ludotype='$ludotype' && game_status='2' ORDER BY id DESC LIMIT 1";
+$sqlsd="SELECT *, (SELECT profile FROM user_regist WHERE user_regist.userrandcode=create_game.fuserid) as profile_img1,(SELECT profile FROM user_regist WHERE user_regist.userrandcode=create_game.suserid) as profile_img2 FROM `create_game` WHERE ludotype='$ludotype' && game_status='2' ORDER BY id DESC LIMIT 1";
     $runsd=mysqli_query($conn,$sqlsd);
 
     if(mysqli_num_rows($runsd)<1)
@@ -69,6 +115,7 @@ $sqlsd="SELECT * FROM `create_game` WHERE ludotype='$ludotype' && game_status='2
     {
         $count++;
         //$playernumber
+		// die(print_r($datad));
         ?>
 		<?php if($datad['fnumber']=="$playernumber" ){
 			if(isset($_COOKIE['baby'] ) && $_COOKIE['baby'] ==  $datad['gameidrandom']){
@@ -110,14 +157,26 @@ $sqlsd="SELECT * FROM `create_game` WHERE ludotype='$ludotype' && game_status='2
 
 				<div class="small text-center d-flex align-items-center justify-content-between">
 					<div class="col-4">
-						<div class="icon mx-auto" style="background-image: url(https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg);"></div>
+						<div class="icon mx-auto" style="background-image: url(<?php
+						 if($datad['profile_img1'] !=''){
+						echo BASEURL.$datad['profile_img1'];
+						}else{
+							echo  'https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg';
+						}
+						?>);"></div>
 						<div class="semi" style="font-size:10px;"><?php echo $datad['fname'];?></div>
 					</div>
 					<div class=""><img src="images/versus.png" height="50"></div>
 
 
 					<div class="col-4">
-						<div class="icon mx-auto" style="background-image: url(https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png);"></div>
+						<div class="icon mx-auto" style="background-image: url(<?php
+						 if($datad['profile_img2'] !=''){
+						echo BASEURL.$datad['profile_img2'];
+						}else{
+							echo  'https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png';
+						}
+						?>);"></div>
 						<div class="semi" style="font-size:10px;"><?php echo $datad['sname'];?></div>
 					</div>
 
@@ -153,14 +212,26 @@ $sqlsd="SELECT * FROM `create_game` WHERE ludotype='$ludotype' && game_status='2
 
 				<div class="small text-center d-flex align-items-center justify-content-between">
 					<div class="col-4">
-						<div class="icon mx-auto" style="background-image: url(https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg);"></div>
+						<div class="icon mx-auto" style="background-image: url(<?php
+						 if($datad['profile_img1'] !=''){
+						echo BASEURL.$datad['profile_img1'];
+						}else{
+							echo  'https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg';
+						}
+						?>);"></div>
 						<div class="semi" style="font-size:10px;"><?php echo $datad['fname'];?></div>
 					</div>
 					<div class=""><img src="images/versus.png" height="50"></div>
 
 
 					<div class="col-4">
-						<div class="icon mx-auto" style="background-image: url(https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png);"></div>
+						<div class="icon mx-auto" style="background-image: url(<?php
+						 if($datad['profile_img2'] !=''){
+						echo BASEURL.$datad['profile_img2'];
+						}else{
+							echo  'https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png';
+						}
+						?>);"></div>
 						<div class="semi" style="font-size:10px;"><?php echo $datad['sname'];?></div>
 					</div>
 
@@ -189,7 +260,7 @@ $sqlsd="SELECT * FROM `create_game` WHERE ludotype='$ludotype' && game_status='2
 	<div class="block-battle" style="margin-left:3%;margin-right:3%;" id="yourbettle">
 
 		<?php
-           $sqlsd="SELECT * FROM `create_game` WHERE ludotype='$ludotype' && game_status='2' ORDER BY id DESC LIMIT 10";
+           $sqlsd="SELECT *, (SELECT profile FROM user_regist WHERE user_regist.userrandcode=create_game.fuserid) as profile_img1,(SELECT profile FROM user_regist WHERE user_regist.userrandcode=create_game.suserid) as profile_img2 FROM `create_game` WHERE ludotype='$ludotype' && game_status='2' ORDER BY id DESC LIMIT 10";
            
 		$runsd=mysqli_query($conn,$sqlsd);
 
@@ -215,12 +286,24 @@ $sqlsd="SELECT * FROM `create_game` WHERE ludotype='$ludotype' && game_status='2
 
 			<div class="small text-center d-flex align-items-center justify-content-between">
 				<div class="col-4">
-					<div class="icon mx-auto" style="background-image: url(https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg);"></div>
+					<div class="icon mx-auto" style="background-image: url(<?php
+						 if($datad['profile_img1'] !=''){
+							echo BASEURL.$datad['profile_img1'];
+						}else{
+							echo  'https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg';
+						}
+						?>);"></div>
 					<div class="semi" style="font-size:10px;"><?php echo $datad['fname'];?></div>
 				</div>
 				<div class=""><img src="images/versus.png" height="50"></div>
 				<div class="col-4">
-					<div class="icon mx-auto" style="background-image: url(https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png);"></div>
+					<div class="icon mx-auto" style="background-image: url(<?php
+						 if($datad['profile_img2'] !=''){
+							echo BASEURL.$datad['profile_img2'];
+						}else{
+							echo  'https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png';
+						}
+						?>);"></div>
 					<div class="semi" style="font-size:10px;"><?php echo $datad['sname'];?></div>
 				</div>
 
@@ -248,10 +331,7 @@ $sqlsd="SELECT * FROM `create_game` WHERE ludotype='$ludotype' && game_status='2
 		</picture>
 		<div class="rcBanner-text bold mt-2"> <span class="bold" style="color: #0186d6; font-style: italic;">Real Game With Real Money!</span></div>
 	</div>
-	<div class="rcBanner-footer">
-		For best experience, open&nbsp;
-		<a href="#!" class="primary-color text-decoration-underline">superludobd.com</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile
-	</div>
+	<div class="rcBanner-footer">For Developing Games Like This, open&nbsp;<a href=https://topuvai.com class="primary-color text-decoration-underline">topuvai.com</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile</div>
 </div>
 </div><!-- // Main -->
 

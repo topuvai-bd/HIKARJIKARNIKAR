@@ -1,109 +1,46 @@
-	<?php
-	if(!isset($_SESSION)){ session_start();};
-include("db.php");
-include("include/pgsessionredirect.php");
-if(isset($_SESSION['sessionludotype'])){
-    $ludotypesession= $_SESSION['sessionludotype'];
-}
-include("wining_charges.php");
-$sqlsd="SELECT * FROM `create_game` WHERE ludotype='$ludotypesession' && game_status='1' ORDER BY id DESC";
-    $runsd=mysqli_query($conn,$sqlsd);
 
-    if(mysqli_num_rows($runsd)<1)
-    {
-      // header("Location:../");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* CSS for centering and scrolling text */
+         body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0; /* Optional: Add a background color */
+        }
+
+        .full-screen-container {
+            white-space: nowrap;
+            overflow: hidden;
+            background-color: #1C191A;
+        }
+
+        .scrolling-text {
+            display: inline-block;
+            animation: marquee 550s linear infinite; /* Change the duration to slow down */
+            color: red; /* Set the text color */
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            0% { transform: translateX(1%); } /* Added initial state */
+            100% { transform: translateX(-100%);
+        }
     }
-else{
-  
-    $count=0;
-    while($datad=mysqli_fetch_assoc($runsd))
-    {
-        $count++;
-        ?>
-        	<div id="response"></div>
-        <form methdo="POST" name="myform" id="submit_form">
-            <input type="hidden" value="<?php echo $datad['game_amount'];?>" name="amnt" id="amnt">
-            
- <input type="hidden" value="<?php echo $datad['gameidrandom'];?>" name="gamecode" id="gamecode">
-                       
-  <input type="hidden" value="<?php echo $datad['id'];?>" name="manid" id="manid">
+    </style>
+</head>
+<body>
+    <div class="full-screen-container">
+        <p class="scrolling-text">
+            Rules: ১. ম্যাচ হারার পর সাথে সাথে Loss সিলেক্ট করে সাবমিট দিবেন অন্যথায় প্রত্যেকবার ২০ থেকে ১০০ টাকা একাউন্ট থেকে জরিমানা করা হবে। ২. কেও মেসেজে খারাপ ভাষা ও গালি দেয় এমনকি তুই বলেও সম্বােধন করেন তাহলে একাউন্ট থেকে ৫০ থেকে ১৫০০ টাকা পর্যন্ত জরিমানা বা একাউন্ট ব্যান করা হবে। ৩. ম্যাচ জয়েন দেওয়ার পর যদি দুজন থেকে কারো গুটি বের না হয়। এবং লুড় কিং কাউকে বের করে দেয় অথবা অনাকাভিক্ষত কারনে ম্যাচ থেকে বের করে দেয়, তাহলে আবার রোম কোড চাইবেন সাথে সাথে, আর যদি রোম কোড না দেয় অথবা বিপরীত প্লেয়ার এর সাথে কন্টাক্ট না করতে পারেন তাহলে মেসেজের স্কীনশট নিয়ে ক্যানসেল সিলেক্ট করে রিজাল্ট আপডেট দিবেন। এরকম ম্যাচ ক্যানসেল এবং টাকা রিফান্ড করা হবে! ৪. যে আগে মেসেজ করবে রোম কোড এর জন্য, বিপরীত প্লেয়ার আগে রােম কোড দিতে বাধ্য থাকিবেন। যদি বিপরীত প্লেয়ার এর সমস্যা হয় আপনি রােম কোড দিবেন এবং যদি আপনি যদি রােম কেড দিতে না চান তাহলে মেসেজে "ক্যানসেল দিন" লিখে স্কীনশট নিবেন এবং ক্যানসেল সিলেক্ট করে আপলোেড দিবেন। যদি বিপরীত প্লেয়ার একদম নতুন হয় রোেম কোড কি না বুজে বা জয়েন হওয়া না বুজে মেসেজে বলবেন "আপনি এডমিনের সাথে যােগাযােগ করেন' এটা নলিখে ম্যাচ ক্যানসেল দিবেন নিজ দায়িত্ব। ৫. যে যে কারনে ম্যাচ ক্যানসেল রিকোয়েস্ট দিতে পারবেন:- ৫.১ - ম্যাচ জয়েন দেয়ার পর যদি আপনার সমস্যার জন্য আপনি খেলতে পারেন সেখেত্তে ম্যাচ ক্যানসেল রিকোয়েস্ট দিবেন। ৫.২ - ম্যাচ জয়েন দেয়ার পর যদি রুম কোড দেওয়া নিয়ে কোনো জটিলতা দেখা দেয় তাহলে ম্যাচ ক্যানসেল এর জন্য রিকোয়েস্ট করবেন। ৫ ৩ -  ম্যাচ জয়েন দেয়ার পর যদি বিপরীত প্লেয়ার কোনোরকম কোনো রিপ্লাই না দেই তাহলে ৭ মিনিট অপেক্ষা করার পর ক্যানসেল রিকুয়েস্ট দিবেন। ৫.৪ - ম্যাচ জয়েন দেয়ার পর বিপরীত প্লেয়ার যদি মেসেজে ক্যানসেল এর কথা বলে আপনি ক্যানসেল রিকোয়েস্ট দিবেন। ৫.৫ - রোম কোড দেয়ার পর ৭ মিনিটের ভিতরে যদি বিপরীত প্লেয়ার রোম এ জয়েন না দেয় এবং মেসেজে ক্যানসেল দিতে বলে তাহলে ম্যাচ ক্যানসেল রিকোয়েস্ট দিবেন। ৫.৬ - ম্যাচ ক্যানসেল এর জন্য প্রথমে বিপরীত প্লেয়ার কে মেসেজে  "ম্যাচ ক্যানসেল দিন" এভাবে মেসেজ করবেন এবং এই মেসেজের স্কীনশট " Cancell √ " সিলেক্ট করে সাবমিট দিবেন। ৫.৭ - (বি: দ্র:) যদি কেও ওল্টা পাল্টা কোনো স্কীনশট অথবা ম্যাচ প্লে দেয়ার পর অথবা ম্যাচ হারার পর ক্যানসেল রিকোয়েস্ট দেন তাহলে ৫০ থেকে ১০০০ টাকা জরিমানা বা একাউন্ট ব্লক করা হবে। ৬. যদি বিপরীত প্লেয়ার রোম কোড দেয়ার পর রোম কোড ভুল হয়, তাহলে সাথে সাথে মেসেজ দিবেন বিপরীত প্লেয়ারকে নতুন কোড দেয়ার জন্য, অন্যথায় ম্যাচটা লস খাবেন। ৭. এখানে শুধুমাএ Classic Mode এ রোম বানাবেন, অন্য কোনো ম্যাচ এলাও না! ৮. অনেক সময় ম্যাচ জয়েন হবার পরও ম্যাচ Upcoming এ থেকে যায়, এমন অবস্থায় 01328070252 / হােয়াটসঅ্যাপ এ এডমিনকে অবহিত করবেন বিষয়টা! শুধুমাএ Ongoing এ থাকা ম্যাচগুলােই অপােনেন্ট এর সাথে রোমকোড শেয়ার করে খেলবেন এবং উইনিং স্ক্রিনশট আপলােড দিয়ে প্রাইজ নিবেন। ৯. ম্যাচ উইন হওয়ার তিন মিনিটের ভিতেরে উইনিং স্ক্রিনশট দিতে হবে? আর যে হারবে তার ম্যাচ হারার সাথে সাথেLost সিলেক্ট করে সাবমিট করতে হবে? ১০. উইথড্র সকাল ০৮ টা থেকে রাত ১০ টা পরযন্ত দেওয়া হবে। রাত ১০ টার পর উইথড্র দিলে পরের দিন সকাল ৮ টা এর পর দেওয়া হবে। ১১. ২ ঘন্টা এর ভিতরে উইথড্র কমপ্লিট না হলে হােয়াটসঅ্যাপ এ যোগাযোগ করবেন!  ১২. উইথড্র এর সময় সকল প্রকার চার্জ ইউজার বহন করবে। ( এখন বিকাশ উইথড্র এ কোনাে প্রকার চার্জ কাটা হবেনা) ১৩. দুই ঘন্টা পার হওয়ার আগে কেও উইথড্র এর জন্য মেসেজ দিলে উইথড্র রিফফান্ড করা হবে।
 
-			
-					<?php if($datad['fnumber']=="$playernumber"){
-					?>
-					<div class="box py-2 box-style d-block" style="background-color:#f2e6ff;">
-				<div class="small mb-2 pb-2 d-flex align-items-center justify-content-between border-bottom w-100">
-					<div style="font-size:10px;font-weight:bold;color:black;">
-					CHALLENGE FROM:<span style="color:#990033;font-size:10px;font-weight:bold;" class="icon-ttl-no semi ms-2"><?php echo $datad['fname'];?></span>
-					</div>
-					<div class="ms-2">
-						<span class="icon-ttl-no semi ms-2"><a href="deletegame?gamcode=<?php echo $datad['gameidrandom'];?>&&amnt=<?php echo $datad['game_amount'];?>" class="btn btn-danger btn-sm">Delete</a></span>
-					</div>
-				</div>
-
-				<div class="small text-center d-flex align-items-center justify-content-between">
-					<div class="col-4">
-					<!--	<div class="icon mx-auto" style="background-image: url(https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg);"></div>-->
-					<div class="semi" style="font-size:10px;color:#ff3399;">Entery Fee <p style="font-size:10px;color:black;"><img src="images/global-rupeeIcon.png" style="width:20px;"><?php echo $datad['game_amount'];?></p></div>
-					
-					
-						
-					</div>
-						<div class="col-4">
-					<!--	<div class="icon mx-auto" style="background-image: url(https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg);"></div>-->
-				
-						<div class="semi" style="font-size:10px;color:#ff3399;">Prize <p style="font-size:10px;color:black;"><img src="images/global-rupeeIcon.png" style="width:20px;"><?php $sdfgtdd= $datad['winning_amount']*$winncharges/100; echo $datad['winning_amount']-$sdfgtdd; ?></p></div>
-					
-						
-					</div>
-						<div class="col-4">
-					    <a href="" ><img src="https://icon-library.com/images/loading-icon-transparent-background/loading-icon-transparent-background-12.jpg" style="width:25px;"></a>
-					   <p style="font-size:8px;color:gray;">Find Player</p>
-					  
-					</div>
-					<?php
-					
-					}
-					else{
-					    ?>
-					    <div class="box py-2 box-style d-block" style="background-color:#f2e6ff;border:1px solid gray;">
-				<div class="small mb-2 pb-2 d-flex align-items-center justify-content-between border-bottom w-100">
-					<div style="font-size:10px;font-weight:bold;color:black;">
-					CHALLENGE FROM:<span style="color:#990033;font-size:10px;font-weight:bold;" class="icon-ttl-no semi ms-2"><?php echo $datad['fname'];?></span>
-					</div>
-					<!--<div class="ms-2">
-						<span class="icon-ttl-no semi ms-2"><a href="" class="btn btn-danger btn-sm">Delete</a></span>
-					</div>-->
-				</div>
-
-				<div class="small text-center d-flex align-items-center justify-content-between">
-					<div class="col-4">
-					<!--	<div class="icon mx-auto" style="background-image: url(https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg);"></div>-->
-					<div class="semi" style="font-size:10px;color:#ff3399;">Entery Fee <p style="font-size:10px;color:black;"><img src="images/global-rupeeIcon.png" style="width:20px;"><?php echo $datad['game_amount'];?></p></div>
-					
-					
-						
-					</div>
-						<div class="col-4">
-					<!--	<div class="icon mx-auto" style="background-image: url(https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg);"></div>-->
-				
-						<div class="semi" style="font-size:10px;color:#ff3399;">Prize <p style="font-size:10px;color:black;"><img src="images/global-rupeeIcon.png" style="width:20px;"><?php $sdfgtdd= $datad['winning_amount']*$winncharges/100; echo $datad['winning_amount']-$sdfgtdd; ?></p></div>
-					
-						
-					</div>
-					    	<div class="col-4">
-					    <a href="acceptbtl?gamcode=<?php echo $datad['gameidrandom'];?>&&amnt=<?php echo $datad['game_amount'];?>" class="btn btn-secondary btn-sm">Play</a>
-					  
-					</div>
-					    <?php
-					}
-					;?>
-				
-				</div>
-			</div>
-			</form>
-	<br>
-<?php
-}
-}
-?>
+        </p>
+    </div>
+</body>
+</html>

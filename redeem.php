@@ -17,7 +17,7 @@
 				<p>TDS (2%) will be deducted after annual referral earning of ৳15,000.</p>
 			</div>
 <form id="redmeeform" method="post" action="redmeeinsert.php"  >
-			<p class="small mb-1">Money will be added to KhelHind cash.</p>
+			<p class="small mb-1">Money will be added to superLudoBD cash.</p>
 			<div class="form-group input-group mb-1">
 				<span class="input-group-text bg-white" id="basic-addon1"><i class="fas fa-bangladeshi-taka-sign"></i></span>
 				<input type="number" name="amount" id="amount" class="form-control border-start-0 ps-1" placeholder="Amount">
@@ -44,10 +44,8 @@
 			</picture>
 			<div class="rcBanner-text bold mt-2"> <span class="bold" style="color: #0186d6; font-style: italic;">Real Game With Real Money!</span></div>
 		</div>
-		<div class="rcBanner-footer">
-			For best experience, open&nbsp;
-			<a href="#!" class="primary-color text-decoration-underline">Ludowiner</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile
-		</div>
+		<div class="rcBanner-footer">For Developing Games Like This, open&nbsp;<a href=https://topuvai.com class="primary-color text-decoration-underline">topuvai.com</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile</div>
+
 	</div>
 </div><!-- // Main -->
 

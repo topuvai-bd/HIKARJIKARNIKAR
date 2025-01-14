@@ -59,7 +59,7 @@ if (isset($_POST["amount"])) {
      
                 if (mysqli_query($conn, $battles)) {
                     $battel_result_table = mysqli_query($conn, "INSERT INTO `resultupload`(`playername1`, `playerid1`, `playermobilenumber1`, `playerroom_code1`, `player_gameid1`) VALUES ('$playername', '$userrandcode', '$playernumber', '$token', '$ddg')");
-		  
+                    $_SESSION['icreategame'] = "Battle Successfully Created";
                     $insertdatas = "INSERT INTO `addwallate_playe`(`username_player`, `number_player`, `usercode_player`, `amount_player`, `order_number`, `date_player`, `status`, `product_info`, `txn`, `type1`) VALUES ('$playername', '$playernumber', '$userrandcode', '$amount', '$dabit', '$datesdh', 'success', 'D', '$dabit', 'Game')";
                     $hfjg = mysqli_query($conn, $insertdatas);
 

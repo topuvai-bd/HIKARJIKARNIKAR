@@ -3,6 +3,9 @@
  include("wining_charges.php");
 
 ?>
+<script>
+	var isPlayerWaitingForRoomCode = false;
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <section class="wallet-sect py-4 clearfix">
 	<div class="alert alert-danger " id="snackbarresult" style="display:none;"></div>
@@ -19,7 +22,7 @@ include("db.php");
 if(!isset($_SESSION)){ session_start();};
  $namesesduser =$_SESSION['finalplayer'];
 $gmgame=$_GET['gmgame'];
-    $sql="SELECT * FROM `create_game` WHERE gameidrandom='$gmgame' AND (fnumber='$namesesduser' OR snumber='$namesesduser')";
+    $sql="SELECT *, (SELECT profile FROM user_regist WHERE user_regist.userrandcode=create_game.fuserid) as profile_img1,(SELECT profile FROM user_regist WHERE user_regist.userrandcode=create_game.suserid) as profile_img2  FROM `create_game` WHERE gameidrandom='$gmgame' AND (fnumber='$namesesduser' OR snumber='$namesesduser')";
     $run=mysqli_query($conn,$sql);
 
     if(mysqli_num_rows($run)<1)
@@ -58,7 +61,13 @@ else{
 				<div class="small text-center d-flex align-items-center justify-content-between">
 					<div class="col-4">
 
-						<div class="icon mx-auto" style="background-image: url(https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg);"></div>
+						<div class="icon mx-auto" style="background-image: url(<?php
+						 if($data['profile_img1'] !=''){
+						echo BASEURL.$data['profile_img1'];
+						}else{
+							echo  'https://png.pngtree.com/png-clipart/20210309/original/pngtree-game-lion-logo-png-image_5846469.jpg';
+						}
+						?>);"></div>
 
 
 
@@ -69,7 +78,13 @@ else{
 
 
 
-						<div class="icon mx-auto" style="background-image: url(https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png);"></div>
+						<div class="icon mx-auto" style="background-image: url(<?php
+						 if($data['profile_img2'] !=''){
+						echo BASEURL.$data['profile_img2'];
+						}else{
+							echo  'https://w7.pngwing.com/pngs/421/772/png-transparent-games-logo-cartoon-chinese-style-s-chinese-wind-image-games-logo-design-game-icon-material-thumbnail.png';
+						}
+						?>);"></div>
 
 
 
@@ -92,6 +107,7 @@ echo '<div class="box text-center box-style border-0 p-4 d-block bg-info bg-opac
 
 }else if(empty($sdfdjhdf) && $firstPlayerNum != $namesesduser){
 	// opponent waiting for roomcode
+	echo '<script>isPlayerWaitingForRoomCode=true;</script>';
 	echo '<div class="box text-center box-style border-0 p-4 d-block bg-info bg-opacity-10">
 				<h6 class="semi">Wait Until Opponent submit room code</h6>
 				<a href="javascript:location.reload()" class="btn py-2 btn-success btn-sm" >Reload</a>
@@ -144,14 +160,14 @@ echo '<div class="box text-center box-style border-0 p-4 d-block bg-info bg-opac
 
 	<div class="box">
 		<div class="section-title">
-			<h4 class="semi">Game Rules</h4>
+			<h4 class="semi">গেম খেলার নিয়ম নোটিশটি 👇👇</h4>
 		</div>
 		<ol>
-			<li>Open SuperLudoBD login with your registered number</li>
-			<li>Join any Table you want to play</li>
-			<li>Copy Roomcode and pate it in ludo king  and start game</li>
-			<li>If you win come back here and click on win button and post your result</li>
-			<li>If you lose game click on lose button and post it </li>
+			<li>ম্যাচ খেলা শেষ হলে অবশ্যই রেজাল্টের স্ক্রিনশট দেবেন </li>
+			<li>যদি কোন কারনে ম্যাচ ক্যান্সেল করার প্রয়োজন পড়ে অবশ্যই তার কারণে প্রমাণ রাখুন </li>
+			<li>ম্যাচ জয়েন্ট করার পর ওপর প্লেয়ার সাথে সাথে গেম থেকে বের হয়ে গেলে ম্যাচ ক্যানসেল দেবেন দুইজনে যদি দুই তিন মিনিট খেলার পর বের হয়ে যায় উইন রেজাল্ট সাবমিট দেবেন</li>
+			<li>কোন প্লেয়ার যদি গেমে পরিবেশ করতে লেট করে তাহলে তার জন্য কমপক্ষে 10 মিনিট পর্যন্ত করবেন তারপর ক্যানসেল সাবমিট করবেন</li>
+			<!-- <li>If you lose game click on lose button and post it </li> -->
 		</ol>
 	</div>
 
@@ -223,6 +239,44 @@ echo '<div class="box text-center box-style border-0 p-4 d-block bg-info bg-opac
 		</form>
 		<?php }?>
 	</div>
+
+	
+	
+	<div class="box">
+    <div class="section-title">
+        <h4 class="semi">গেম খেলার নিয়ম নোটিশটি 👇👇</h4>
+    </div>
+    <table class="table table-bordered table-hover shadow-sm" border="1" cellspacing="0" cellpadding="5" style="width: 100%; text-align: left; border-collapse: collapse; font-style: bold;">
+        <thead class="table-light">
+            <tr>
+                <th style="text-align: left; vertical-align: middle;">জরিমানার পরিমাণ</th>
+                <th style="text-align: left; vertical-align: middle;">জরিমানা কারণ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td  style="text-align: left; color: red; font-weight: bold; vertical-align: middle;">৳ ৩০</td>
+                <td style="text-align: left; font-weight: bold; vertical-align: middle;">প্রতারণা/Fake Screenshot সাবমিট দিলে</td>
+            </tr>
+            <tr>
+                <td style="text-align: left; color: red; font-weight: bold; vertical-align: middle;">৳ ২০</td>
+                <td style="text-align: left; font-weight: bold; vertical-align: middle;">ভুল রেজাল্ট সাবমিট দিলে</td>
+            </tr>
+            <tr>
+                <td style="text-align: left; color: red; font-weight: bold; vertical-align: middle;">৳ ১৫</td>
+                <td style="text-align: left; font-weight: bold; vertical-align: middle;">রেজাল্ট সাবমিট করতে দেরি করলে অথবা সাবমিট না করলে</td>
+            </tr>
+            <tr>
+                <td style="text-align: left; color: red; font-weight: bold; vertical-align: middle;">৳ ১০</td>
+                <td style="text-align: left; font-weight: bold; vertical-align: middle;">Abusing</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
 </section>
 
 <!-- Footer -->
@@ -267,10 +321,7 @@ echo '<div class="box text-center box-style border-0 p-4 d-block bg-info bg-opac
 		</picture>
 		<div class="rcBanner-text bold mt-2"> <span class="bold" style="color: #0186d6; font-style: italic;">Real Game With Real Money!</span></div>
 	</div>
-	<div class="rcBanner-footer">
-		For best experience, open&nbsp;
-		<a href="#!" class="primary-color text-decoration-underline">superludobd.com</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile
-	</div>
+	<div class="rcBanner-footer">For Developing Games Like This, open&nbsp;<a href=https://topuvai.com class="primary-color text-decoration-underline">topuvai.com</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile</div>
 </div>
 </div><!-- // Main -->
 
@@ -328,31 +379,31 @@ echo '<div class="box text-center box-style border-0 p-4 d-block bg-info bg-opac
 	function runningbettle_call() {
 
 
-		$.ajax({
-			type: "post",
-			url: "get_battelroom.php",
-			datatype: "json",
-			data: {
-				gameid: gameid,
-				type: type
-			},
-			success: function(data) {
-				var value = $.trim(data);
+		// $.ajax({
+		// 	type: "post",
+		// 	url: "get_battelroom.php",
+		// 	datatype: "json",
+		// 	data: {
+		// 		gameid: gameid,
+		// 		type: type
+		// 	},
+		// 	success: function(data) {
+		// 		var value = $.trim(data);
 
-				if ($.trim(data) == "") {
-
-
-
-					window.location.href = "battle.php?type=" + type;
+		// 		if ($.trim(data) == "") {
 
 
 
-				} else {
-					$('#battleroom').html(data);
-				}
+		// 			window.location.href = "battle.php?type=" + type;
 
-			}
-		});
+
+
+		// 		} else {
+		// 			$('#battleroom').html(data);
+		// 		}
+
+		// 	}
+		// });
 
 	}
 	setInterval(function() {
@@ -579,3 +630,74 @@ echo '<div class="box text-center box-style border-0 p-4 d-block bg-info bg-opac
         });
 	}
 </script>
+<audio id="audioPlayer" src="alarm.wav" preload="auto"  muted></audio>
+	<script>
+		var AudioSwitch=false;
+		// Get the audio element
+        const audio = document.getElementById('audioPlayer');
+		 // Start muted and paused on user interaction
+		 function initAudio() {
+            document.body.removeEventListener('click', initAudio); // Remove listener after first click
+            audio.muted = false; // Unmute audio
+            // audio.play() // Play audio briefly
+            //     .then(() => {
+            //         audio.pause(); // Immediately pause after starting
+            //         console.log("Audio initialized successfully.");
+            //     })
+            //     .catch((error) => {
+            //         console.error("Error initializing audio:", error.message);
+            //     });
+        }
+		document.body.addEventListener('click', initAudio);
+        // Play the sound
+        function playSound() {
+            audio.play();
+        }
+
+        // Pause the sound
+        function pauseSound() {
+            audio.pause();
+        }
+		console.log("AudioSwitch32423");
+		// audio.pauseSound();
+		function LoopAudio(){
+			console.log("AudioSwitch",AudioSwitch);
+			
+			if(AudioSwitch && audio.paused){
+				playSound();
+			}
+			if(AudioSwitch==false){
+				pauseSound();
+			}
+		}
+		
+		// setInterval(function(){
+		// 	LoopAudio();
+		// }, 400);
+		setInterval(LoopAudio, 2000);
+		var checkingRoomCode;
+		// get if room code is submitted by room creator
+		function GetIfRoomCodeSubmitted(){
+			$.ajax({
+				url: "include/getroomcode.php",
+				method: "POST",
+				data: {
+					gamecode: $('#gameroomID').val(),
+				},
+				success: function(data) {
+					console.log(data);
+					if(!data.includes("200")){
+						AudioSwitch=true;
+						clearInterval(checkingRoomCode);
+					}
+				}
+			});
+		}
+		if(isPlayerWaitingForRoomCode){
+			checkingRoomCode=setInterval(GetIfRoomCodeSubmitted, 5000);
+		}
+		
+
+
+
+	</script>

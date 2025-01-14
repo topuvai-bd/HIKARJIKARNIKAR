@@ -109,10 +109,8 @@ input[type=number] {
 					</picture>
 					<div class="rcBanner-text bold">Ludowiner <span class="bold" style="color: #0186d6; font-style: italic;">Real Game With Real Money!</span></div>
 				</div>
-				<div class="rcBanner-footer">
-					For best experience, open&nbsp;
-					<a href="#!" class="primary-color text-decoration-underline">superludobd.com</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile
-				</div>
+				<div class="rcBanner-footer">For Developing Games Like This, open&nbsp;<a href=https://topuvai.com class="primary-color text-decoration-underline">topuvai.com</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile</div>
+
 			</div>
 		</div><!-- // Main -->
 
@@ -121,5 +119,5 @@ input[type=number] {
 <?php include("loginscript");?>
 	</body>
 
-<!-- Mirrored from khelhind.com/login.php by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 15 Jul 2022 19:31:37 GMT -->
+<!-- Mirrored from superLudoBD.com/login.php by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 15 Jul 2022 19:31:37 GMT -->
 </html>

@@ -1,4 +1,4 @@
-<?php include("Header.php");?>
+<?php include("Header.php");  $error="";?>
 <section class="wallet-sect bg-light py-4 clearfix">
 	<div class="container-fluid">
 	    
@@ -21,7 +21,7 @@ if(isset($_POST['updated'])){
     else{
           $filename=$_FILES["profileimage"]["name"];
    $tempname= $_FILES["profileimage"]["tmp_name"];
-   $folder="profile/".$filename;
+   $folder="upload/profile/".$filename;
    move_uploaded_file($tempname,$folder);
     $q = "update user_regist set  user_Name='$names',profile='$folder' where user_number=$namesesduser";
     $query = mysqli_query($conn,$q);
@@ -91,10 +91,7 @@ else{
 			</picture>
 			<div class="rcBanner-text bold mt-2"> <span class="bold" style="color: #0186d6; font-style: italic;">Real Game With Real Money!</span></div>
 		</div>
-		<div class="rcBanner-footer">
-			For best experience, open&nbsp;
-			<a href="#!" class="primary-color text-decoration-underline">superludobd.com</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile
-		</div>
+		<div class="rcBanner-footer">For Developing Games Like This, open&nbsp;<a href=https://topuvai.com class="primary-color text-decoration-underline">topuvai.com</a> on <img src="images/global-chrome.png" alt="" height="20"> chrome mobile</div>
 	</div>
 </div><!-- // Main -->
 

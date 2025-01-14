@@ -88,7 +88,14 @@ function refreshBalanceBlock()
 							<li class="nav-item profile">
 								<a href="profile" class="">
 									<div class="profile-block">
-										<img src="https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png" class="img-fluid">
+										
+										<img src="<?php 
+										if($profile_img !=''){
+											echo $profile_img;
+										}else{
+											echo 'https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png';
+										}
+										?>" class="img-fluid">
 										<div class="profile-desc">
 
 
@@ -155,14 +162,14 @@ function refreshBalanceBlock()
 								</a>
 							</li>
 
-							<li class="nav-item">
+							<!-- <li class="nav-item">
 								<a href="top-user" class="">
 									<div class="menu-icon">
 										<i class="pe-2 fas fa-crown"></i>
 										<span>Top 10 Users</span>
 									</div>
 								</a>
-							</li>
+							</li> -->
 
 							<li class="nav-item">
 								<a href="refer" class="">
@@ -224,7 +231,7 @@ function refreshBalanceBlock()
 } else if (isset($_COOKIE['finalplayer'])) {
 
     $_SESSION['finalplayer'] = $_COOKIE['finalplayer'];
-    header("Location:index");
+    header("Location: index");
 
 } else {
     ?>

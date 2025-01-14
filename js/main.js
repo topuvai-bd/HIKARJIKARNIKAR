@@ -1,7 +1,7 @@
 "use strict";
-! function(p) {
+! function (p) {
 
-	var $window = $(window);
+    var $window = $(window);
 
     /* WOW JS
     * ------------------------------------------------------ */
@@ -12,15 +12,15 @@
     /*-----------------------------------
      * NAVBAR CLOSE ON CLICK
      *-----------------------------------*/
-   
-    $('.mobile-toggle').click(function() {
+
+    $('.mobile-toggle').click(function () {
         $(this).toggleClass('show');
         $('.main-menu').toggleClass('show');
         $('html').toggleClass('menushow');
         $('.overlay').toggleClass('show');
     });
 
-    $('.overlay').click(function() {
+    $('.overlay').click(function () {
         $(this).removeClass('show');
         $('.main-menu').removeClass('show');
         $('html').removeClass('menushow');
@@ -29,23 +29,23 @@
 
 
     if ($window.width() > 992) {
-        $(".dropdown").hover(function(e){
+        $(".dropdown").hover(function (e) {
             $(this).toggleClass("active");
         });
     }
     // Mobile dropdown on click
     if ($window.width() < 992) {
-        $(".dropdown-toggle").click(function(e){
+        $(".dropdown-toggle").click(function (e) {
             $(this).toggleClass("active");
-            if(!$(this).next(".dropdown-menu").hasClass("collapse")) {
-                 return $(this).next(".dropdown-menu").addClass("collapse").slideDown(300);
-            } else { 
+            if (!$(this).next(".dropdown-menu").hasClass("collapse")) {
+                return $(this).next(".dropdown-menu").addClass("collapse").slideDown(300);
+            } else {
                 $(this).next(".dropdown-menu").removeClass("collapse").slideUp(300);
             }
 
         });
     }
-   
+
 
     /* Back to Top
     * ------------------------------------------------------ */
@@ -65,10 +65,10 @@
     });
 
 
-    
+
     /* TOOLTIP */
     $(function () {
-      $('[data-bs-toggle="tooltip"]').tooltip()
+        $('[data-bs-toggle="tooltip"]').tooltip()
     });
 
 
@@ -83,5 +83,7 @@
         dotsEach: true,
         items: 1.2,
     });
-   
+
+
+
 }(jQuery);

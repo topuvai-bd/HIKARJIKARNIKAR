@@ -1,4 +1,7 @@
 	<?php
+if(!isset($conn)){
+    include("db.php");
+}
 
 $sqlsd="SELECT * FROM `game_commission` WHERE id='1' && type='Game' ORDER BY id DESC";
     $runsd=mysqli_query($conn,$sqlsd);

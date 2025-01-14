@@ -68,7 +68,8 @@ Total Referral : <?php echo $totalEarning;?>
 
     if(mysqli_num_rows($runf)<1)
     {
-       header("Location:../");
+    //    header("Location: index.php");
+	echo "No Referral Found";
     }
 else{
   

@@ -30,7 +30,7 @@ if(!isset($_SESSION)){ session_start();};
      else{
      
      $winnnigamount=$amounst*2;
-      $dys=md5($password);
+      // $dys=md5($password);
       $datesdh=date("d/M/Y");
     // $ddg="B".rand(10000000,9999999999);
       $dabit="D".rand(10000,9999999);

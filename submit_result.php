@@ -77,7 +77,8 @@ function UploadAndReturnURL($file){
         if (in_array($fileType, $allowTypes)) {
             // Upload file to the server
             if (move_uploaded_file($file["tmp_name"], $targetFilePath)) {
-                $uploadedFile = 'https://superludobd.com/' . $targetFilePath;
+                // $uploadedFile = 'https://superludobd.com/' . $targetFilePath;
+                $uploadedFile = BASEURL . $targetFilePath;
             } else {
                 $uploadedFile = 'unable to upload file';
             }

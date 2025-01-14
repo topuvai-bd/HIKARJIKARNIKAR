@@ -6,6 +6,7 @@ $password_server = "topuvai_payment";
 $db_server = "cxzzhvyr_topuvai_payment";
 
 define('SITE_URL', 'https://courssell.xyz/payment/');
+define('CALLBACK_WEBHOOK', 'http://103.174.188.143/clients/superludo/superludobd/newuddokta/getsuccesss.php');
 define('PAY_URL', 'https://sandbox.uddoktapay.com/');
 define('API_KEY', '982d381360a69d419689740d9f2e26ce36fb7a50');
 // define('PAY_URL', 'https://pay.courssell.xyz/');
