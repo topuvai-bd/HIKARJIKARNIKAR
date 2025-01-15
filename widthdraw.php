@@ -87,8 +87,12 @@ else{
 			</div>
 			<?php
 			 $resulta = $conn->query("SELECT * FROM `Sattelment_cahrges` order by id desc limit 1");
-			 $BonusBalance =$resulta->fetch_assoc();
-			 $amnd = $BonusBalance['amount']; 
+			 if ($resulta) {
+				 $BonusBalance = $resulta->fetch_assoc();
+				 $amnd = $BonusBalance['amount']; 
+			 } else {
+				 $amnd = 0;
+			 }
 				?>
 			<span style="color:black ;font-size: 11px;">We have charge <?php echo $amnd ? $amnd : "0";?>% procession fees on withdraw.</span>
 			</form>

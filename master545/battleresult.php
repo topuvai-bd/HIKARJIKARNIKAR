@@ -60,6 +60,7 @@
 											
 										<th>rand</th>
 										<th>status</th>
+										<th>API_RESULT</th>
 									
 									</tr>
 								</thead>
@@ -183,6 +184,7 @@ else{
 											
 										<th>rand</th>
 										<th>status</th>
+										<th>API_RESULT</th>
 									</tr>
 								</tfoot>
 							</table>

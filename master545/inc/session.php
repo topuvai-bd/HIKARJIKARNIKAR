@@ -7,7 +7,7 @@ $session_admin=$_SESSION['asmlogin'];
 
  }
   else{
-      header("location:../master/index");
+      header("location:../master545/index");
   }
   
 
@@ -17,7 +17,7 @@ $session_admin=$_SESSION['asmlogin'];
 
     if(mysqli_num_rows($run)<1)
     {
-        header("location:../master/index");
+        header("location:../master545/index");
     }
 else{
   

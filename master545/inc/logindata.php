@@ -15,7 +15,7 @@ include("db.php");
 
 <p class="alert alert-success">Login SuccessFull</p>
 <script>
-window.open('../master/Dashboard','_self');
+window.open('../master545/Dashboard','_self');
     </script>
 <?php
 

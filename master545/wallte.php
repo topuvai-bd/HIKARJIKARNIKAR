@@ -23,13 +23,13 @@ if (isset($_GET['id'])) {
 
 
 	if ($conn->query($sql) === TRUE) {
-		// header("Location: https://superludobd.com/master/wallte");
+		// header("Location: https://superludobd.com/master545/wallte");
 		
 	} else {
 		// header("Location: wallte?msg=success");
 		
 	}
-	echo "<script>window.location.href='https://superludobd.com/master/wallte';</script>";
+	echo "<script>window.location.href='https://superludobd.com/master545/wallte';</script>";
 	exit();
 }
 

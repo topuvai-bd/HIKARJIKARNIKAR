@@ -102,7 +102,7 @@ else{
 						
 					</div>
 					    	<div class="col-4">
-					    <a href="include/acceptbtl.php?gamcode=<?php echo $datad['gameidrandom'];?>&&amnt=<?php echo $datad['game_amount'];?>" class="btn btn-secondary btn-sm">Play</a>
+					    <a href="include/acceptbtl.php?gamcode=<?php echo $datad['gameidrandom'];?>&amnt=<?php echo $datad['game_amount'];?>" class="btn btn-secondary btn-sm">Play</a>
 					  
 					</div>
 					    <?php

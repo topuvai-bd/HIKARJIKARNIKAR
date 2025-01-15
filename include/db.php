@@ -9,9 +9,13 @@
 	// $username = "courssel_superludobd_topuvai";
 	// $password = "superludobd_topuvai";
 	// $db="courssel_superludobd_topuvai";
-	// enable error reporting
-	error_reporting(E_ALL);
-	ini_set('display_errors', 1);
+	// disable error reporting
+	error_reporting(0);
+	ini_set('display_errors', 0);
+	// $servername_server = "localhost";
+	// error_reporting(E_ALL);
+	// ini_set('display_errors', 1);
+	
 	// $servername = "localhost";
 	// $username = "u591982837_babytopuvai";
 	// $password = "i^vXt1]I";
