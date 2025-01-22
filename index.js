@@ -5,7 +5,7 @@ const http = require('http');
 const publicIP = '103.174.188.143'; // Public IP or DDNS hostname
 const broadcastIP = '103.174.188.255'; // Broadcast address for the subnet
 
-const checkInterval = 2 * 60 * 1000; // 2 minutes in milliseconds
+const checkInterval = 10 * 60 * 1000; // 2 minutes in milliseconds
 const wolInterval = 5 * 60 * 1000; // 5 minutes in milliseconds
 const serverPort = 3000; // Port to listen for HTTP requests
 
