@@ -1,12 +1,15 @@
 const wakeOnLan = require('wakeonlan');
 const net = require('net');
+const http = require('http');
 
 // Configuration
 const macAddress = '00:e0:4c:3b:35:7f'; // Target MAC address
 const publicIP = '103.174.188.143'; // Public IP or DDNS hostname
+const broadcastIP = '103.174.188.255'; // Broadcast address for the subnet
 const port = 9; // WOL UDP port
 const checkInterval = 2 * 60 * 1000; // 2 minutes in milliseconds
 const wolInterval = 5 * 60 * 1000; // 5 minutes in milliseconds
+const serverPort = 3000; // Port to listen for HTTP requests
 
 // Function to check server status
 function checkServerStatus() {
@@ -34,11 +37,11 @@ function checkServerStatus() {
 
 // Function to send WOL packet
 function sendWOLPacket() {
-    wakeOnLan(macAddress, { address: publicIP, port }, (error) => {
+    wakeOnLan(macAddress, { address: broadcastIP, port }, (error) => {
         if (error) {
             console.log("Error sending WOL packet:", error);
         } else {
-            console.log(`Wake-on-LAN packet sent to ${macAddress} at ${publicIP}:${port}`);
+            console.log(`Wake-on-LAN packet sent to ${macAddress} at ${broadcastIP}:${port}`);
         }
     });
 }
@@ -67,3 +70,13 @@ function sendWOLPacket() {
         }
     }
 })();
+
+// HTTP server to listen on a specific port
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Server monitor is running.');
+});
+
+server.listen(serverPort, () => {
+    console.log(`HTTP server listening on port ${serverPort}`);
+});
