@@ -1,12 +1,10 @@
-const wakeOnLan = require('wakeonlan');
 const net = require('net');
 const http = require('http');
 
 // Configuration
-const macAddress = '00:e0:4c:3b:35:7f'; // Target MAC address
 const publicIP = '103.174.188.143'; // Public IP or DDNS hostname
 const broadcastIP = '103.174.188.255'; // Broadcast address for the subnet
-const port = 9; // WOL UDP port
+
 const checkInterval = 2 * 60 * 1000; // 2 minutes in milliseconds
 const wolInterval = 5 * 60 * 1000; // 5 minutes in milliseconds
 const serverPort = 3000; // Port to listen for HTTP requests
@@ -35,16 +33,45 @@ function checkServerStatus() {
     });
 }
 
-// Function to send WOL packet
-function sendWOLPacket() {
-    wakeOnLan(macAddress, { address: broadcastIP, port }, (error) => {
-        if (error) {
-            console.log("Error sending WOL packet:", error);
+const dgram = require('dgram');
+
+// Function to create the magic packet
+function createMagicPacket(macAddress) {
+    const macBytes = macAddress.split(':').map(byte => parseInt(byte, 16));
+    const magicPacket = Buffer.alloc(102);
+
+    // Fill the magic packet
+    for (let i = 0; i < 6; i++) {
+        magicPacket[i] = 0xFF; // 6 bytes of FF
+    }
+
+    for (let i = 6; i < magicPacket.length; i += macBytes.length) {
+        magicPacket.set(macBytes, i); // 16 repetitions of the MAC address
+    }
+
+    return magicPacket;
+}
+
+// Function to send the magic packet
+function sendWOLPacket(macAddress, ipAddress, port = 9) {
+    const magicPacket = createMagicPacket(macAddress);
+    const client = dgram.createSocket('udp4');
+
+    client.send(magicPacket, port, ipAddress, (err) => {
+        if (err) {
+            console.error('Error sending WOL packet:', err);
         } else {
-            console.log(`Wake-on-LAN packet sent to ${macAddress} at ${broadcastIP}:${port}`);
+            console.log(`Magic packet sent to MAC: ${macAddress}, IP: ${ipAddress}, Port: ${port}`);
         }
+        client.close();
     });
 }
+
+// Configuration
+const macAddress = '00:e0:4c:3b:35:7f'; // Your target MAC address
+const ipAddress = '103.174.188.143'; // Your public IP or DDNS hostname
+const port = 9; // UDP port for WOL
+
 
 // Main loop
 (async function monitorServer() {
@@ -62,7 +89,8 @@ function sendWOLPacket() {
 
             if (!isServerDown) {
                 console.log("Attempting to wake the server...");
-                sendWOLPacket();
+                // Send the magic packet
+                sendWOLPacket(macAddress, ipAddress, port);
                 isServerDown = true;
             }
 
