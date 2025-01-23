@@ -4,7 +4,7 @@ const dgram = require('dgram');
 
 // Configuration
 const publicIP = '103.174.188.143'; // Public IP or DDNS hostname
-const broadcastIP = '103.174.188.255'; // Broadcast address for the subnet
+const broadcastIP = '103.174.188.143'; // Broadcast address for the subnet
 const macAddress = '00:e0:4c:3b:35:7f'; // Target MAC address
 const wolPort = 9; // UDP port for WOL
 const checkInterval = 10 * 60 * 1000; // 10 minutes in milliseconds
@@ -90,7 +90,7 @@ function sendWOLPacket(macAddress, ipAddress, port = wolPort) {
                 while (!isRunning) {
                     try {
                         // Send the magic packet
-                        await sendWOLPacket(macAddress, broadcastIP, wolPort);
+                        await sendWOLPacket(macAddress, publicIP, wolPort);
                         console.log("Retrying to wake the server...");
                     } catch (error) {
                         console.error("Failed to send WOL packet:", error);
